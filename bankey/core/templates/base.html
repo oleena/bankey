@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bankey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        {% if user.is_authenticated %}
+            Hello, {{ user.username|default:'Guest' }}! (<a href="{% url 'logout' %}">logout</a>)
+        {% else %}
+            Hello, Guest! (<a href="{% url 'login' %}">login</a>)
+        {% endif %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/balance">=> Balance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/transfer">=> Transfer</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+{% block content %}
+{% endblock %}
+</body>
+</html>
+
